@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/filmListFragment"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/filmListFragment"
+        android:name="ru.kykapek.starwarswiki.ui.FilmList.FilmListFragment"
+        android:label="filmList"
+        tools:layout="@layout/fragment_film_list">
+        <action
+            android:id="@+id/action_filmListFragment_to_filmDetailsFragment"
+            app:destination="@+id/filmDetailsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/filmDetailsFragment"
+        android:name="ru.kykapek.starwarswiki.ui.FilmDetails.FilmDetailsFragment"
+        android:label="filmDetails"
+        tools:layout="@layout/fragment_film_details">
+        <action
+            android:id="@+id/action_filmDetailsFragment_to_PlanetDetailsFragment"
+            app:destination="@+id/planetDetailsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/planetDetailsFragment"
+        android:name="ru.kykapek.starwarswiki.ui.PlanetDetails.PlanetDetailsFragment"
+        android:label="planetDetails"
+        tools:layout="@layout/fragment_planet_details">
+        <action
+            android:id="@+id/action_filmDetailsFragment_to_PlanetDetailsFragment"
+            app:destination="@+id/planetDetailsFragment"/>
+    </fragment>
+
+</navigation>
