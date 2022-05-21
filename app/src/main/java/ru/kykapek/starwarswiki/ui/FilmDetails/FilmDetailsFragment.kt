@@ -1,6 +1,7 @@
 package ru.kykapek.starwarswiki.ui.FilmDetails
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collect
 import ru.kykapek.starwarswiki.R
 import ru.kykapek.starwarswiki.databinding.FragmentFilmDetailsBinding
@@ -46,6 +49,9 @@ class FilmDetailsFragment : Fragment() {
     ): View? {
         mBinding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
         val view = mBinding.root
+        sett()
+        //viewModel.bla(1)
+        /*
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.heroDetails.collect { event ->
@@ -67,7 +73,25 @@ class FilmDetailsFragment : Fragment() {
                 }
             }
         }
+
+         */
         return view
+    }
+
+    fun sett() {
+        viewModel.heroesfromfilms.observe(viewLifecycleOwner, Observer {
+            when(it.status) {
+                Resource.Status.SUCCESS -> {
+                    Log.e("List of my links", it.data.toString())
+                }
+                Resource.Status.LOADING -> Log.e("List of my links", it.data.toString())
+            }
+        })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sett()
     }
 
     private operator fun Any.setValue(

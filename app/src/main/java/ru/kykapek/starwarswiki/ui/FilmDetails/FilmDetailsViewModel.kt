@@ -1,5 +1,6 @@
 package ru.kykapek.starwarswiki.ui.FilmDetails
 
+import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -7,16 +8,30 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.kykapek.starwarswiki.data.FilmsRepository
+import ru.kykapek.starwarswiki.data.database.FilmsDBRepository
 import ru.kykapek.starwarswiki.models.Film
 import ru.kykapek.starwarswiki.models.Hero
+import ru.kykapek.starwarswiki.models.response.FilmResponse
 import ru.kykapek.starwarswiki.utils.Resource
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class FilmDetailsViewModel @Inject constructor(
-    private val filmsRepository: FilmsRepository,
+    //private val filmsRepository: FilmsRepository,
+    private val filmsDBRepository: FilmsDBRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+    val heroesfromfilms = filmsDBRepository.hetHeroes(1)
+
+    fun getHeroes(id: Int) : LiveData<Resource<FilmResponse>> {
+
+        Log.e("List of heroes links", filmsDBRepository.hetHeroes(id).toString())
+        return filmsDBRepository.hetHeroes(id)
+    }
+
+    /*
 
     private val arguments = savedStateHandle.get<Film>("filmDetails")
 
@@ -56,5 +71,7 @@ class FilmDetailsViewModel @Inject constructor(
             }
         }
     }
+
+     */
 
 }

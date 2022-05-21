@@ -6,6 +6,7 @@ import retrofit2.HttpException
 import ru.kykapek.starwarswiki.utils.Resource
 
 open class ApiCall {
+    /*
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
         return withContext(Dispatchers.IO) {
             try {
@@ -22,4 +23,6 @@ open class ApiCall {
             }
         }
     }
+
+     */
 }

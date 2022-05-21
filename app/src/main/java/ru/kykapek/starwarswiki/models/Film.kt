@@ -7,11 +7,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.util.ArrayList
 
 @Entity(tableName = "films")
 @Parcelize
 data class Film(
     @PrimaryKey
+    @SerializedName("episode_id")
+    val id: Int,
     @SerializedName("title")
     val title: String,
     @SerializedName("director")
@@ -19,8 +22,5 @@ data class Film(
     @SerializedName("producer")
     val producer: String,
     @SerializedName("release_date")
-    @ColumnInfo(collate = ColumnInfo.NOCASE)
     val releaseDate: String,
-    @SerializedName("characters")
-    val characters: List<String>
 ) : Parcelable

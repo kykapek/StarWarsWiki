@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class FilmsRepository @Inject constructor(private val apiService: ApiService) : ApiCall() {
 
+    /*
     fun getFilms(search: String): Flow<PagingData<Film>> {
         return Pager(
             config = PagingConfig(
@@ -24,6 +25,8 @@ class FilmsRepository @Inject constructor(private val apiService: ApiService) : 
         ).flow
     }
 
+     */
+
     fun saveAllFilms() {
         
     }
@@ -32,8 +35,11 @@ class FilmsRepository @Inject constructor(private val apiService: ApiService) : 
 
     }
 
+    /*
     suspend fun getHero(url: String) = safeApiCall {
         apiService.getHero(url)
     }
+
+     */
 
 }

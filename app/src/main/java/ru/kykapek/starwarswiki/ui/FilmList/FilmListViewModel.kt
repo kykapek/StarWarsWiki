@@ -1,5 +1,6 @@
 package ru.kykapek.starwarswiki.ui.FilmList
 
+import androidx.lifecycle.LiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -13,15 +14,18 @@ import ru.kykapek.starwarswiki.models.Film
 
 @HiltViewModel
 class FilmListViewModel @Inject constructor(
-        private val filmsRepository: FilmsRepository,
         private val filmsDBRepository: FilmsDBRepository
     ) : ViewModel() {
 
+    /*
     fun getFilms(search: String): Flow<PagingData<Film>> {
         return filmsRepository.getFilms(search).cachedIn(viewModelScope)
     }
+     */
 
-    fun getFilmsFromDB(search: String): Flow<PagingData<Film>> {
-        return filmsDBRepository.getFilms(search)
+    fun searchForFilms(search: String) : LiveData<List<Film>> {
+        return filmsDBRepository.searchFilms(search)
     }
+
+    val getFilmsDBRepository = filmsDBRepository.getFilms()
 }
