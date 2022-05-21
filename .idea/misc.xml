@@ -10,11 +10,13 @@
         <entry key="..\:/coding/android/BigNerdRanch/StarWarsWiki/app/src/main/res/layout/fragment_film_list.xml" value="0.3500905797101449" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/film_item.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_film_details.xml" value="0.21745885057195805" />
         <entry key="app/src/main/res/layout/fragment_film_list.xml" value="0.27522799726845554" />
+        <entry key="app/src/main/res/layout/hero_item.xml" value="0.2091849285623302" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

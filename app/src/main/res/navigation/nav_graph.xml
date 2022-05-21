@@ -20,6 +20,9 @@
         android:name="ru.kykapek.starwarswiki.ui.FilmDetails.FilmDetailsFragment"
         android:label="filmDetails"
         tools:layout="@layout/fragment_film_details">
+        <argument
+            android:name="filmDetails"
+            app:argType="ru.kykapek.starwarswiki.models.Film"/>
         <action
             android:id="@+id/action_filmDetailsFragment_to_PlanetDetailsFragment"
             app:destination="@+id/planetDetailsFragment"/>

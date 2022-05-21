@@ -23,9 +23,7 @@ class FilmListFragment : Fragment() {
 
     private val filmsAdapter: FilmListAdapter by lazy {
         FilmListAdapter(FilmListAdapter.OnClickListener { film ->
-            val action = FilmListFragmentDirections.actionFilmListFragmentToFilmDetailsFragment(
-                //film
-            )
+            val action = FilmListFragmentDirections.actionFilmListFragmentToFilmDetailsFragment(film)
             findNavController().navigate(action)
         })
     }

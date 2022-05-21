@@ -24,4 +24,16 @@ class FilmsRepository @Inject constructor(private val apiService: ApiService) : 
         ).flow
     }
 
+    fun saveAllFilms() {
+        
+    }
+
+    fun getFilmsDB() {
+
+    }
+
+    suspend fun getHero(url: String) = safeApiCall {
+        apiService.getHero(url)
+    }
+
 }
