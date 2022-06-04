@@ -3,6 +3,7 @@ package ru.kykapek.starwarswiki.data.database
 import androidx.lifecycle.LiveData
 import ru.kykapek.starwarswiki.data.remote.FilmsRemoteDataSource
 import ru.kykapek.starwarswiki.models.Film
+import ru.kykapek.starwarswiki.models.Hero
 import ru.kykapek.starwarswiki.utils.performGetOperation
 import ru.kykapek.starwarswiki.utils.performGetSingleOperation
 import javax.inject.Inject
@@ -23,6 +24,10 @@ class FilmsDBRepository @Inject constructor(
         networkCall = { remoteDataSource.getFilms() },
         saveCallResult = { filmsDao.insertAllFilms(it.results) }
     )
+
+    suspend fun saveHeroes(heroesList: List<Hero>) {
+        filmsDao.insertAllHeroes(heroesList)
+    }
 
     fun searchFilms(search: String) : LiveData<List<Film>> {
         return filmsDao.getSearchFilmsResult(search)

@@ -21,6 +21,7 @@ import ru.kykapek.starwarswiki.ui.FilmList.FilmListFragment
 import ru.kykapek.starwarswiki.ui.FilmList.FilmListFragmentDirections
 import ru.kykapek.starwarswiki.ui.FilmList.FilmListViewModel
 import ru.kykapek.starwarswiki.utils.Resource
+import ru.kykapek.starwarswiki.utils.SealedResource
 import kotlin.reflect.KProperty
 
 @AndroidEntryPoint
@@ -32,66 +33,41 @@ class FilmDetailsFragment : Fragment() {
         FilmDetailsAdapter()
     }
 
-    /*
-    private val filmDetailsAdapter: FilmDetailsAdapter by lazy {
-        FilmDetailsAdapter(FilmDetailsAdapter.OnClickListener { film ->
-            val action = FilmListFragmentDirections.actionFilmListFragmentToFilmDetailsFragment(
-                //film
-            )
-            findNavController().navigate(action)
-        })
-    }
-     */
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
         val view = mBinding.root
-        sett()
         //viewModel.bla(1)
-        /*
+
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.heroDetails.collect { event ->
                 when(event) {
-                    is Resource.Success -> {
+                    is SealedResource.Success -> {
                         mBinding.heroProgressBar.isVisible = false
                         filmDetailsAdapter.submitList(event.data)
                         mBinding.rvHeroes.adapter = filmDetailsAdapter
                     }
-                    is Resource.Failure -> {
+                    is SealedResource.Failure -> {
                         mBinding.heroProgressBar.isVisible = false
                         mBinding.tvHeroError.isVisible = true
                         mBinding.tvHeroError.text = event.message
                     }
-                    is Resource.Loading -> {
+                    is SealedResource.Loading -> {
                         mBinding.heroProgressBar.isVisible = true
                     }
                     else -> Unit
                 }
             }
         }
-
-         */
         return view
     }
 
-    fun sett() {
-        viewModel.heroesfromfilms.observe(viewLifecycleOwner, Observer {
-            when(it.status) {
-                Resource.Status.SUCCESS -> {
-                    Log.e("List of my links", it.data.toString())
-                }
-                Resource.Status.LOADING -> Log.e("List of my links", it.data.toString())
-            }
-        })
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sett()
     }
 
     private operator fun Any.setValue(

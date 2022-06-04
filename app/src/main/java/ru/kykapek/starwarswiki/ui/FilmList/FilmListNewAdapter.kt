@@ -41,7 +41,7 @@ class ViewHolder(private val itemBinding: FilmItemBinding, private val listener:
         itemBinding.root.setOnClickListener(this)
     }
 
-    @SuppressLint("SetTextI18n")
+    //@SuppressLint("SetTextI18n")
     fun bind(item: Film) {
         this.film = item
         itemBinding.tvTitle.text = item.title

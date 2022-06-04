@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import ru.kykapek.starwarswiki.models.Film
 import ru.kykapek.starwarswiki.models.Hero
+import ru.kykapek.starwarswiki.models.converters.ListConverter
 
 @Database(
     entities = [Film::class, Hero::class],
-    version = 3
+    version = 7
 )
+@TypeConverters(ListConverter::class)
 abstract class FilmsDB : RoomDatabase() {
 
     abstract fun filmsDao() : FilmsDao

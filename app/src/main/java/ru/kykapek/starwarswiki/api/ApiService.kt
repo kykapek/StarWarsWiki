@@ -1,6 +1,7 @@
 package ru.kykapek.starwarswiki.api
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 import ru.kykapek.starwarswiki.models.Film
@@ -14,5 +15,8 @@ interface ApiService {
 
     @GET()
     suspend fun getHero(@Url url: String): Hero
+
+    @GET("films/{id}")
+    suspend fun getFilm(@Path("id") id: Int) : FilmResponse
 
 }

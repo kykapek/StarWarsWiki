@@ -23,4 +23,6 @@ data class Film(
     val producer: String,
     @SerializedName("release_date")
     val releaseDate: String,
+    @SerializedName("characters")
+    val characters: List<String>
 ) : Parcelable

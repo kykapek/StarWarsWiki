@@ -1,10 +1,7 @@
 package ru.kykapek.starwarswiki.data.remote
 
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 import ru.kykapek.starwarswiki.models.Film
 import ru.kykapek.starwarswiki.models.FilmList
 import ru.kykapek.starwarswiki.models.Hero
@@ -12,7 +9,7 @@ import ru.kykapek.starwarswiki.models.response.FilmResponse
 
 interface FilmsService {
 
-    @GET("films")
+    @GET("films/")
     suspend fun getFilms() : Response<FilmList>
 
     @GET("films/{id}")

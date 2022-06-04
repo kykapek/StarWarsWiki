@@ -9,26 +9,64 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.kykapek.starwarswiki.data.FilmsRepository
 import ru.kykapek.starwarswiki.data.database.FilmsDBRepository
+import ru.kykapek.starwarswiki.data.remote.FilmsRemoteDataSource
 import ru.kykapek.starwarswiki.models.Film
 import ru.kykapek.starwarswiki.models.Hero
 import ru.kykapek.starwarswiki.models.response.FilmResponse
 import ru.kykapek.starwarswiki.utils.Resource
+import ru.kykapek.starwarswiki.utils.SealedResource
+import ru.kykapek.starwarswiki.utils.episodeIdToNumber
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class FilmDetailsViewModel @Inject constructor(
-    //private val filmsRepository: FilmsRepository,
+    private val filmsRepository: FilmsRepository,
+    private val filmsRemoteDataSource: FilmsRemoteDataSource,
     private val filmsDBRepository: FilmsDBRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val heroesfromfilms = filmsDBRepository.hetHeroes(1)
 
-    fun getHeroes(id: Int) : LiveData<Resource<FilmResponse>> {
+    private val sourceFilm = savedStateHandle.get<Film>("filmDetails")
+    private val id = sourceFilm?.id?.let { episodeIdToNumber(it) }
 
-        Log.e("List of heroes links", filmsDBRepository.hetHeroes(id).toString())
-        return filmsDBRepository.hetHeroes(id)
+    private val _details = MutableLiveData<Film>()
+    val details : LiveData<Film>
+        get() = _details
+
+    private val _heroDetails = MutableStateFlow<SealedResource<List<Hero>>>(SealedResource.Empty())
+    val heroDetails: StateFlow<SealedResource<List<Hero>>>
+        get() = _heroDetails
+
+    private val heroList: ArrayList<Hero> = ArrayList()
+
+    init {
+        _details.value = sourceFilm!!
+        //getCharactersList()
+        getHeroesData()
+    }
+
+    private fun getHeroesData() {
+        sourceFilm!!.characters.forEach { hero ->
+            viewModelScope.launch(Dispatchers.IO) {
+                _heroDetails.value = SealedResource.Loading()
+                when (val filmDetainsResponse = filmsRepository.getHero(hero)) {
+                    is SealedResource.Failure -> {
+                        _heroDetails.value = SealedResource.Failure(filmDetainsResponse.message!!)
+                    }
+                    is SealedResource.Success -> {
+                        if(filmDetainsResponse.data == null) {
+                            _heroDetails.value = SealedResource.Failure("Empty Hero List")
+                        } else {
+                            heroList.add(filmDetainsResponse.data)
+                            _heroDetails.value = SealedResource.Success(heroList)
+                        }
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 
     /*

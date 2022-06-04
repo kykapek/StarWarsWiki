@@ -7,6 +7,14 @@ import ru.kykapek.starwarswiki.models.Film
 
 @Parcelize
 data class FilmResponse(
+    @SerializedName("title")
+    val title: String,
+    @SerializedName("director")
+    val director: String,
+    @SerializedName("producer")
+    val producer: String,
+    @SerializedName("release_date")
+    val releaseDate: String,
     @SerializedName("characters")
-    val results: String
+    val characters: List<String>
 ) : Parcelable
